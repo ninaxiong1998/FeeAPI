@@ -5,8 +5,6 @@
 - Typescript v4.9.5
 - MariaDB v10.5
 
----
-
 ## ENV
 
 copy .env.example and rename as .env
@@ -38,8 +36,6 @@ npm start
 npm test
 
 ```
-
----
 
 ## API
 
