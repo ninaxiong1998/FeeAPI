@@ -67,16 +67,15 @@ npm test
     Content-Type: application/json
 
     {
-    "patient": {
-        "id": 3,
-        "name": "莊小云",
-        "birth": "0771003",
-        "gender": "女",
-        "age": 24,
-        "nationality": "台灣"
-    },
-    "amount": 150
-
+        "patient": {
+            "id": 3,
+            "name": "莊小云",
+            "birth": "0771003",
+            "gender": "女",
+            "age": 24,
+            "nationality": "台灣"
+        },
+        "amount": 150
     }
 
 ---
