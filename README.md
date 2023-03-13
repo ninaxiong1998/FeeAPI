@@ -1,7 +1,5 @@
 # Fee API
 
----
-
 ## Version
 
 - Typescript v4.9.5
