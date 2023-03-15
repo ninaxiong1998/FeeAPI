@@ -1,9 +1,9 @@
 // controllers/api-controllers.ts
 import { Request, Response, NextFunction } from 'express';
 import moment from 'moment';
-import { AppDataSource } from "../data-source"
-import { Fee } from "../entity/Fee"
-import { Patient } from "../entity/Patient"
+import { AppDataSource } from "../data-source";
+import { Fee } from "../entity/Fee";
+import { Patient } from "../entity/Patient";
 
 function birthToAge(birthday: string, systemDate: string): number {
     const ADyear = (Number(birthday.substring(0, 3)) + 1911).toString();
@@ -18,7 +18,7 @@ async function ageToFee(age: number): Promise<number>{
     .createQueryBuilder("fee")
     .where("fee.startAge <= :age AND fee.endAge >= :age", { age: age })
     .getOne();
-  return fee.fee
+  return fee.fee;
 }
 
 export class ApiControllers {
@@ -27,18 +27,14 @@ export class ApiControllers {
   }
 
   async getFeePage(request: Request, response: Response, next: NextFunction) {
-
     const birthday: string | undefined = <string>request.query.birthday;
     const systemDate: string | undefined = <string>request.query.systemDate;
-
     const age = birthToAge(birthday, systemDate);
     const fee = await ageToFee(age);
     response.send({'amount': fee});
-
   }
 
   async getPatientPage(request: Request, response: Response, next: NextFunction) {
-
     const patientId: number | undefined = request.body?.patientId;
     const systemDate: string | undefined =  request.body?.systemDate;
 
@@ -50,17 +46,14 @@ export class ApiControllers {
 
     let result = {};
     result['patient'] = patientInfo;
-    result['patient']['gender'] = (result['patient']['gender']==='Male')? '男':'女';
-
+    result['patient']['gender'] = (result['patient']['gender'] === 'Male') ? '男':'女';
     const age = birthToAge(patientInfo.birth, systemDate);
     result['patient']['age'] = age;
     result['patient']['nationality'] = patientInfo.nation.country;
     delete result['patient']['nation'];
-
     const fee = await ageToFee(age);
     result['amount'] = fee;
 
     response.send(result);
   }
-
 }
